@@ -68,38 +68,38 @@ export default function Home() {
               <th className="py-2 px-4 border-b text-center">Status</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
+            <tbody>
+            <tr className="hover:bg-gray-100">
               <td className="py-2 px-4 border-b text-center">1</td>
               <td className="py-2 px-4 border-b text-center">Project A</td>
               <td className="py-2 px-4 border-b text-center">Hacker X</td>
               <td className="py-2 px-4 border-b text-center">Bug</td>
               <td className="py-2 px-4 border-b text-center">
-                <span className="inline-block px-2 py-1 text-xs font-semibold text-white bg-red-500 rounded-full">High</span>
+              <span className="inline-block px-2 py-1 text-xs font-semibold text-white bg-red-500 rounded-full">High</span>
               </td>
               <td className="py-2 px-4 border-b text-center">Open</td>
             </tr>
-            <tr>
+            <tr className="hover:bg-gray-100">
               <td className="py-2 px-4 border-b text-center">2</td>
               <td className="py-2 px-4 border-b text-center">Project B</td>
               <td className="py-2 px-4 border-b text-center">Hacker Y</td>
               <td className="py-2 px-4 border-b text-center">Feature</td>
               <td className="py-2 px-4 border-b text-center">
-                <span className="inline-block px-2 py-1 text-xs font-semibold text-white bg-yellow-500 rounded-full">Medium</span>
+              <span className="inline-block px-2 py-1 text-xs font-semibold text-white bg-yellow-500 rounded-full">Medium</span>
               </td>
               <td className="py-2 px-4 border-b text-center">Closed</td>
             </tr>
-            <tr>
+            <tr className="hover:bg-gray-100">
               <td className="py-2 px-4 border-b text-center">3</td>
               <td className="py-2 px-4 border-b text-center">Project C</td>
               <td className="py-2 px-4 border-b text-center">Hacker Z</td>
               <td className="py-2 px-4 border-b text-center">Feature</td>
               <td className="py-2 px-4 border-b text-center">
-                <span className="inline-block px-2 py-1 text-xs font-semibold text-white bg-red-700 rounded-full">Critical</span>
+              <span className="inline-block px-2 py-1 text-xs font-semibold text-white bg-red-700 rounded-full">Critical</span>
               </td>
               <td className="py-2 px-4 border-b text-center">Closed</td>
             </tr>
-          </tbody>
+            </tbody>
         </table>
       </div>
     </div>
