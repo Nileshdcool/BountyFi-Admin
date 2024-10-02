@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "project": "Project A",
+        "hacker": "Hacker X",
+        "type": "Bug",
+        "severity": "High",
+        "status": "Open"
+    },
+    {
+        "id": 2,
+        "project": "Project B",
+        "hacker": "Hacker Y",
+        "type": "Feature",
+        "severity": "Medium",
+        "status": "Closed"
+    },
+    {
+        "id": 3,
+        "project": "Project C",
+        "hacker": "Hacker Z",
+        "type": "Feature",
+        "severity": "Critical",
+        "status": "Closed"
+    }
+]

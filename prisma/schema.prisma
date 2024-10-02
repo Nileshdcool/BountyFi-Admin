@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Project {
+  id        Int      @id @default(autoincrement())
+  name      String
+  createdAt DateTime @default(now())
+
+  reports Report[]
+}
+
+model Report {
+  id        Int            @id @default(autoincrement())
+  projectId Int
+  userId    Int
+  title     String
+  type      ReportType
+  severity  ReportSeverity
+  status    ReportStatus
+  createdAt DateTime       @default(now())
+
+  project Project @relation(fields: [projectId], references: [id])
+  user    User    @relation(fields: [userId], references: [id])
+}
+
+model User {
+  id        Int    @id @default(autoincrement())
+  email     String @unique
+
+  reports Report[]
+}
+
+enum ReportStatus {
+  reported
+  escalated
+  confirmed
+  paid
+  closed
+}
+
+enum ReportSeverity {
+  critical
+  high
+  medium
+  low
+  none
+}
+
+enum ReportType {
+  websites_and_applications
+  smart_contract
+  blockchain_dlt
+}
