@@ -24,7 +24,7 @@ const Layout = ({ children }: LayoutProps) => {
         {children}
       </main>
       <footer className="bg-gray-800 text-white p-4 text-center">
-        &copy; 2023 My Website
+        &copy; 2024 Immunefi
       </footer>
     </div>
   );
