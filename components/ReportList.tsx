@@ -1,15 +1,19 @@
 import React from 'react';
 import { Report } from '../types/report';
+import { getFormattedDate } from '@/utils/date.service';
+import Pagination from './Pagination';
 
 interface ReportListProps {
     data: Report[];
     fetchPage: any;
     page: any;
     totalPages: any;
+    pageSize: any;
+    setPageSize: any
 }
 
 
-const ReportList: React.FC<ReportListProps> = ({ data, fetchPage, page, totalPages }) => {
+const ReportList: React.FC<ReportListProps> = ({ data, fetchPage, page, totalPages, pageSize, setPageSize }) => {
     return (
         <div className="overflow-x-auto">
             <table className="min-w-full bg-white border border-gray-200">
@@ -21,6 +25,7 @@ const ReportList: React.FC<ReportListProps> = ({ data, fetchPage, page, totalPag
                 <th className="py-2 px-4 border-b text-center">Type</th>
                 <th className="py-2 px-4 border-b text-center">Severity</th>
                 <th className="py-2 px-4 border-b text-center">Status</th>
+                <th className="py-2 px-4 border-b text-center">Submission</th>
                 </tr>
             </thead>
             <tbody>
@@ -36,29 +41,12 @@ const ReportList: React.FC<ReportListProps> = ({ data, fetchPage, page, totalPag
                     </span>
                     </td>
                     <td className="py-2 px-4 border-b text-center">{item.status}</td>
+                    <td className="py-2 px-4 border-b text-center">{getFormattedDate(new Date(item.createdAt))}</td>
                 </tr>
                 ))}
             </tbody>
             </table>
-            <div className="pagination flex flex-col sm:flex-row justify-center items-center mt-4 space-y-2 sm:space-y-0 sm:space-x-4">
-            <button
-                onClick={() => fetchPage(page - 1)}
-                disabled={page <= 1}
-                className={`px-4 py-2 rounded ${page <= 1 ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-600'} text-white`}
-            >
-                Previous
-            </button>
-            <span className="text-lg font-semibold">
-                Page {page} of {totalPages}
-            </span>
-            <button
-                onClick={() => fetchPage(page + 1)}
-                disabled={page >= totalPages}
-                className={`px-4 py-2 rounded ${page >= totalPages ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-600'} text-white`}
-            >
-                Next
-            </button>
-            </div>
+            <Pagination fetchPage={fetchPage} page={page} totalPages={totalPages} pageSize={pageSize} setPageSize={setPageSize}  />
         </div>
     );
 };
