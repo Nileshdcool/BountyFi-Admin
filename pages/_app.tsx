@@ -4,11 +4,14 @@ import '../styles/globals.css';
 
 
 import { AppProps } from 'next/app';
+import { FilterProvider } from '@/contexts/FilterContext';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Layout>
-      <Component {...pageProps} />
+      <FilterProvider>
+        <Component {...pageProps} />
+      </FilterProvider>
     </Layout>
   );
 }
