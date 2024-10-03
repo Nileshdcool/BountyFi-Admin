@@ -42,18 +42,10 @@ const Home = ({ initialData, meta }: Props) => {
 
   return (
     <div className="container mx-auto p-4">
-      {loading ? (
-      <div className="flex justify-center items-center h-screen">
-        <Loader />
-      </div>
-      ) : (
-      <>
-        <h2 className="text-left text-2xl font-bold mb-4">{PageValues.REPORT}</h2>
+      <h2 className="text-left text-2xl font-bold mb-4">{PageValues.REPORT}</h2>
         <ButtonGroup activeButton={activeButton} handleButtonClick={setActiveButton} />
         <FilterForm />
         <ReportList data={data} fetchPage={fetchPage} page={page} totalPages={totalPages} pageSize={pageSize} setPageSize={setPageSize} />
-      </>
-      )}
     </div>
   );
 };

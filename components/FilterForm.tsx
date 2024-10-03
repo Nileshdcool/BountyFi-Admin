@@ -18,7 +18,7 @@ const FilterForm: React.FC = () => {
       <div className="flex-1">
         <label className="block text-sm font-bold text-gray-900">Report ID</label>
         <input
-          type="text"
+          type="number"
           name="reportId"
           value={formValues.reportId || ''}
           onChange={handleChange}

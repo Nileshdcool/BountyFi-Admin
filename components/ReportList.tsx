@@ -31,7 +31,7 @@ const ReportList: React.FC<ReportListProps> = ({ data, fetchPage, page, totalPag
             <tbody>
                 {data.map((item) => (
                 <tr key={item.id} className="hover:bg-gray-100">
-                    <td className="py-2 px-4 border-b text-center">{item.id}</td>
+                    <td className="py-2 px-4 border-b text-center">#{item.id}</td>
                     <td className="py-2 px-4 border-b text-center">{item.project.name}</td>
                     <td className="py-2 px-4 border-b text-center">{item.user.email}</td>
                     <td className="py-2 px-4 border-b text-center">{item.type}</td>
