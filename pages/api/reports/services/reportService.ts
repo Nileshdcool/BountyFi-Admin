@@ -1,18 +1,18 @@
-import { getReportsFromDB } from '../repositories/reportRepository';
-import { getTotalReportsCount } from '../repositories/reportRepository';
+import { getReportsFromDB, getTotalReportsCount } from '../repositories/reportRepository';
 import { ReportsResponse } from "../../types/reportTypes";
+import { IFilter } from '@/types/filter';
 
-
-export const getReports = async (page: number, limit: number): Promise<ReportsResponse> => {
-  const skip = (page - 1) * limit;
-  const reports = await getReportsFromDB(skip, limit);
-  const totalReports = await getTotalReportsCount();
+export const getReports = async (filter: IFilter): Promise<ReportsResponse> => {
+  const skip = (Number(filter.page) - 1) * Number(filter.limit);
+  const reports = await getReportsFromDB(skip, Number(filter.limit), filter);
+  const totalReports = await getTotalReportsCount(filter);
 
   return {
     reports,
     meta: {
-      page,
-      totalPages: Math.ceil(totalReports / limit),
+      page: Number(filter.page),
+      totalPages: Math.ceil(totalReports / Number(filter.limit)),
     },
   };
 };
+

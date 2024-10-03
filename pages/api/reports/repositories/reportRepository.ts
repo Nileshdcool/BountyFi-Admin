@@ -1,12 +1,25 @@
 import { PrismaClient } from '@prisma/client';
 import { Reports } from '../../types/reportTypes';
+import { IFilter } from '@/types/filter';
 
 const prisma = new PrismaClient();
 
-export const getReportsFromDB = async (skip: number, take: number): Promise<Reports> => {
+const buildWhereClause = (filter: IFilter) => {
+  const where: any = {};
+  if (filter.status) where.status = filter.status.toLowerCase();
+  if (filter.reportId) where.id = Number(filter.reportId);
+  if (filter.hacker) where.user = { email: filter.hacker.toLowerCase() };
+  if (filter.severity) where.severity = filter.severity.toLowerCase();
+  if (filter.reportType) where.type = filter.reportType.toLowerCase();
+  return where;
+};
+
+export const getReportsFromDB = async (skip: number, take: number, filter: IFilter): Promise<Reports> => {
+  const where = buildWhereClause(filter);
   const reports = await prisma.report.findMany({
     skip,
     take,
+    where,
     include: {
       project: true,
       user: true,
@@ -19,6 +32,7 @@ export const getReportsFromDB = async (skip: number, take: number): Promise<Repo
   }));
 };
 
-export const getTotalReportsCount = async (): Promise<number> => {
-  return prisma.report.count();
+export const getTotalReportsCount = async (filter: IFilter): Promise<number> => {
+  const where = buildWhereClause(filter);
+  return prisma.report.count({ where });
 };

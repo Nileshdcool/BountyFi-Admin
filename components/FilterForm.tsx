@@ -1,12 +1,9 @@
-// components/FilterForm.tsx
 import React from 'react';
 import { useFilterContext } from '@/contexts/FilterContext';
+import { ReportSeverity } from '@/enums/report-severity.enum';
+import { ReportType } from '@/enums/report-type.enum';
 
-interface FilterFormProps {
-  fetchPage: (page: number) => void;
-}
-
-const FilterForm: React.FC<FilterFormProps> = ({ fetchPage }) => {
+const FilterForm: React.FC = ( ) => {
   const { formValues, setFormValues } = useFilterContext();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -14,7 +11,6 @@ const FilterForm: React.FC<FilterFormProps> = ({ fetchPage }) => {
       ...formValues,
       [e.target.name]: e.target.value,
     });
-    fetchPage(1);
   };
 
   return (
@@ -27,6 +23,7 @@ const FilterForm: React.FC<FilterFormProps> = ({ fetchPage }) => {
             name="reportId"
             value={formValues.reportId || ''}
             onChange={handleChange}
+            placeholder="Enter Report ID"
             className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
           />
         </div>
@@ -37,6 +34,7 @@ const FilterForm: React.FC<FilterFormProps> = ({ fetchPage }) => {
             name="hacker"
             value={formValues.hacker || ''}
             onChange={handleChange}
+            placeholder="Enter Hacker Name"
             className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
           />
         </div>
@@ -49,10 +47,11 @@ const FilterForm: React.FC<FilterFormProps> = ({ fetchPage }) => {
             className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
           >
             <option value="">Select Severity</option>
-            <option value="low">Low</option>
-            <option value="medium">Medium</option>
-            <option value="high">High</option>
-            <option value="critical">Critical</option>
+            {Object.values(ReportSeverity).map((severity) => (
+              <option key={severity} value={severity}>
+                {severity.charAt(0).toUpperCase() + severity.slice(1)}
+              </option>
+            ))}
           </select>
         </div>
         <div>
@@ -64,9 +63,11 @@ const FilterForm: React.FC<FilterFormProps> = ({ fetchPage }) => {
             className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
           >
             <option value="">Select Report Type</option>
-            <option value="bug">Bug</option>
-            <option value="feature">Feature</option>
-            <option value="improvement">Improvement</option>
+            {Object.values(ReportType).map((type) => (
+              <option key={type} value={type}>
+                {type.charAt(0).toUpperCase() + type.slice(1)}
+              </option>
+            ))}
           </select>
         </div>
       </div>
