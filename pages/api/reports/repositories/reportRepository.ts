@@ -15,24 +15,34 @@ const buildWhereClause = (filter: IFilter) => {
 };
 
 export const getReportsFromDB = async (skip: number, take: number, filter: IFilter): Promise<Reports> => {
-  const where = buildWhereClause(filter);
-  const reports = await prisma.report.findMany({
-    skip,
-    take,
-    where,
-    include: {
-      project: true,
-      user: true,
-    },
-  });
+  try {
+    const where = buildWhereClause(filter);
+    const reports = await prisma.report.findMany({
+      skip,
+      take,
+      where,
+      include: {
+        project: true,
+        user: true,
+      },
+    });
 
-  return reports.map(report => ({
-    ...report,
-    createdAt: report.createdAt.toISOString(),
-  }));
+    return reports.map(report => ({
+      ...report,
+      createdAt: report.createdAt.toISOString(),
+    }));
+  } catch (error) {
+    console.error(error);
+    throw new Error('Error fetching reports');
+  }
 };
 
 export const getTotalReportsCount = async (filter: IFilter): Promise<number> => {
-  const where = buildWhereClause(filter);
-  return prisma.report.count({ where });
+  try {
+    const where = buildWhereClause(filter);
+    return prisma.report.count({ where });
+  } catch (error) {
+    console.error(error);
+    throw new Error('Error fetching reports count');
+  }
 };

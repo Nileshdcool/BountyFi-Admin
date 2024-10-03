@@ -1,3 +1,4 @@
+import { INTERNAL_SERVER_ERROR } from '@/constants/messages';
 import { NextApiResponse } from 'next';
 
 export const handleError = (res: NextApiResponse, error: any) => {
@@ -8,6 +9,6 @@ export const handleError = (res: NextApiResponse, error: any) => {
   } else if (error.name === 'NotFoundError') {
     res.status(404).json({ error: 'Not Found', details: error.message });
   } else {
-    res.status(500).json({ error: 'Internal Server Error', details: error.message });
+    res.status(500).json({ error: INTERNAL_SERVER_ERROR, details: error.message });
   }
 };
