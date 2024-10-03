@@ -1,40 +1,57 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# full-stack take-home assignment
 
-## Getting Started
+## Prerequisites
 
-First, run the development server:
+Docker Compose must be installed on your machine. If it is not installed, you can find the installation instructions for your specific operating system on the [Docker](https://www.docker.com/) website.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Running the web server
+
+Start the application services by running the following command:
+
+```
+docker compose up
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The website will be available at `http://localhost:3000/`. When you are finished working with the services, stop them by running the following command:
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+```
+docker compose down
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## Seeding the database
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+Once you start the appliaction, you will need to seed the appliaction database. To do so, you will need to log into the container by running:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```
+docker compose exec next bash
+```
 
-## Learn More
+Then:
 
-To learn more about Next.js, take a look at the following resources:
+```
+npx prisma db seed
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## PGAdmin
 
-## Deploy on Vercel
+To connect to the database using PGAdmin, you need to extract the following details from your `.env` file:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Host**: `localhost`
+- **Port**: `5432`
+- **Username**: `postgres`
+- **Password**: `secretpassword`
+- **Database**: `immunefi`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+In PGAdmin, you would enter these details in the "New Server Registration" dialog:
+
+1. **Name**: (Any name you prefer for this connection)
+2. **Host name/address**: `localhost`
+3. **Port**: `5432`
+4. **Maintenance database**: `immunefi`
+5. **Username**: `postgres`
+6. **Password**: `secretpassword`
+
+This will allow you to connect to your PostgreSQL database using PGAdmin.
+
+

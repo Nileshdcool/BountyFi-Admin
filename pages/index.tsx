@@ -3,21 +3,40 @@ import React, { useEffect, useState } from 'react';
 
 interface Report {
   id: number;
-  project: string;
-  hacker: string;
+  status: string;
   type: string;
   severity: string;
-  status: string;
+  title: string;
+  createdAt: string;
+  project: {
+    id: number;
+    name: string;
+  };
+  user: {
+    id: number;
+    email: string;
+  };
 }
 
 interface Props {
   initialData: Report[];
+  meta: any;
 }
 
-export default function Home({ initialData }: Props) {
+export default function Home({ initialData, meta }: Props) {
   const [activeButton, setActiveButton] = useState('All');
-
   const [data, setData] = useState<Report[]>(initialData);
+
+  const [page, setPage] = useState(meta.page);
+  const [totalPages, setTotalPages] = useState(meta.totalPages);
+
+  const fetchPage = async (page: number) => {
+    const res = await fetch(`/api/reports?page=${page}&limit=10`);
+    const data = await res.json();
+    setData(data.reports);
+    setPage(data.meta.page);
+    setTotalPages(data.meta.totalPages);
+  };
 
   const handleButtonClick = (buttonName: string) => {
     setActiveButton(buttonName);
@@ -87,8 +106,8 @@ export default function Home({ initialData }: Props) {
             {data.map((item) => (
               <tr key={item.id} className="hover:bg-gray-100">
                 <td className="py-2 px-4 border-b text-center">{item.id}</td>
-                <td className="py-2 px-4 border-b text-center">{item.project}</td>
-                <td className="py-2 px-4 border-b text-center">{item.hacker}</td>
+                <td className="py-2 px-4 border-b text-center">{item.project.name}</td>
+                <td className="py-2 px-4 border-b text-center">{item.user.email}</td>
                 <td className="py-2 px-4 border-b text-center">{item.type}</td>
                 <td className="py-2 px-4 border-b text-center">
                   <span className={`inline-block px-2 py-1 text-xs font-semibold text-white ${item.severity.toLowerCase() === 'low' ? 'bg-green-500' : item.severity.toLowerCase() === 'medium' ? 'bg-yellow-500' : item.severity.toLowerCase() === 'high' ? 'bg-orange-500' : 'bg-red-500'} rounded-full`}>
@@ -100,18 +119,39 @@ export default function Home({ initialData }: Props) {
             ))}
           </tbody>
         </table>
+        <div className="pagination flex justify-center items-center mt-4 space-x-4">
+          <button
+            onClick={() => fetchPage(page - 1)}
+            disabled={page <= 1}
+            className={`px-4 py-2 rounded ${page <= 1 ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-600'} text-white`}
+          >
+            Previous
+          </button>
+          <span className="text-lg font-semibold">
+            Page {page} of {totalPages}
+          </span>
+          <button
+            onClick={() => fetchPage(page + 1)}
+            disabled={page >= totalPages}
+            className={`px-4 py-2 rounded ${page >= totalPages ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-600'} text-white`}
+          >
+            Next
+          </button>
+        </div>
       </div>
     </div>
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  const res = await fetch('http://localhost:3000/dashboard.json');
-  const data: Report[] = await res.json();
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { page = 1, limit = 10 } = context.query;
+  const res = await fetch(`http://localhost:3000/api/reports?page=${page}&limit=${limit}`);
+  const data: any = await res.json();
 
   return {
     props: {
-      initialData: data,
+      initialData: data.reports,
+      meta: data.meta,
     },
   };
 };
