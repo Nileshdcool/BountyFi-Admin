@@ -6,11 +6,11 @@ const prisma = new PrismaClient();
 
 const buildWhereClause = (filter: IFilter) => {
   const where: any = {};
-  if (filter.status) where.status = filter.status.toLowerCase();
+  if (filter.status) where.status = { equals: filter.status.toLowerCase(), mode: 'insensitive' };
   if (filter.reportId) where.id = Number(filter.reportId);
-  if (filter.hacker) where.user = { email: filter.hacker.toLowerCase() };
-  if (filter.severity) where.severity = filter.severity.toLowerCase();
-  if (filter.reportType) where.type = filter.reportType.toLowerCase();
+  if (filter.hacker) where.user = { email: { contains: filter.hacker.toLowerCase(), mode: 'insensitive' } };
+  if (filter.severity) where.severity = { equals: filter.severity.toLowerCase(), mode: 'insensitive' };
+  if (filter.reportType) where.type = { equals: filter.reportType.toLowerCase(), mode: 'insensitive' };
   if (filter.submissionDate) {
     const date = new Date(filter.submissionDate);
     where.createdAt = {
