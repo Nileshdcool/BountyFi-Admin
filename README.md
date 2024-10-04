@@ -1,43 +1,76 @@
-# full-stack take-home assignment
+```md
+# Full-Stack Take-Home Assignment
+
+This project contains a full-stack web application with a PostgreSQL database, designed to be run inside Docker containers using Docker Compose.
 
 ## Prerequisites
 
-Docker Compose must be installed on your machine. If it is not installed, you can find the installation instructions for your specific operating system on the [Docker](https://www.docker.com/) website.
+Ensure that Docker Compose is installed on your machine. If not, you can find the installation instructions for your specific operating system on the [Docker](https://www.docker.com/) website.
 
-## Running the web server
+## Getting Started
 
-Start the application services by running the following command:
+Follow the steps below to set up and run the application locally.
 
+### 1. Clone the Repository
+
+Clone the repository to your local machine:
+
+```bash
+git clone <repository-url>
+cd <repository-directory>
 ```
+
+### 2. Start the Application
+
+To start the application and all required services, run the following command:
+
+```bash
 docker compose up
 ```
 
-The website will be available at `http://localhost:3000/`. When you are finished working with the services, stop them by running the following command:
+Once the services are up, the application will be accessible at:
 
 ```
+http://localhost:3000/
+```
+
+### 3. Stop the Application
+
+To stop the application and its services, run:
+
+```bash
 docker compose down
 ```
 
-## Seeding the database
+## Database Setup
 
-Once you start the appliaction, you will need to seed the appliaction database. To do so, you will need to log into the container by running:
+### 1. Seeding the Database
 
-```
-docker compose exec next bash
-```
+After starting the application, seed the database by following these steps:
 
-Then:
+- Log into the `next` container:
 
-```
-npx prisma db seed
-```
-## Prisma Command
+  ```bash
+  docker compose exec next bash
+  ```
 
+- Run the following command to seed the database:
+
+  ```bash
+  npx prisma db seed
+  ```
+
+### 2. Apply Prisma Migrations
+
+To apply any new migrations to the database schema, use the following command:
+
+```bash
 npx prisma migrate dev --name add_new_fields
+```
 
-## PGAdmin
+## PGAdmin Setup
 
-To connect to the database using PGAdmin, you need to extract the following details from your `.env` file:
+To connect to the PostgreSQL database using PGAdmin, you will need the following details from your `.env` file:
 
 - **Host**: `localhost`
 - **Port**: `5432`
@@ -45,15 +78,20 @@ To connect to the database using PGAdmin, you need to extract the following deta
 - **Password**: `secretpassword`
 - **Database**: `immunefi`
 
-In PGAdmin, you would enter these details in the "New Server Registration" dialog:
+### Steps to Connect:
 
-1. **Name**: (Any name you prefer for this connection)
-2. **Host name/address**: `localhost`
-3. **Port**: `5432`
-4. **Maintenance database**: `immunefi`
-5. **Username**: `postgres`
-6. **Password**: `secretpassword`
+1. Open PGAdmin and add a new server.
+2. In the "New Server Registration" dialog, enter the following:
+   - **Name**: (Any name of your choice)
+   - **Host name/address**: `localhost`
+   - **Port**: `5432`
+   - **Maintenance database**: `immunefi`
+   - **Username**: `postgres`
+   - **Password**: `secretpassword`
 
-This will allow you to connect to your PostgreSQL database using PGAdmin.
+This will connect you to your local PostgreSQL database.
 
+## Conclusion
 
+You should now have the application up and running locally, with the ability to interact with the PostgreSQL database. If you run into any issues, check the logs produced by Docker Compose for troubleshooting.
+```
