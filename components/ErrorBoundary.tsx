@@ -1,5 +1,6 @@
 import React, { Component, ReactNode } from 'react';
 import Link from 'next/link';
+import { ERROR_BOUNDARY_ERROR } from '@/constants/messages';
 
 interface ErrorBoundaryProps {
   children: ReactNode;
@@ -16,12 +17,12 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   }
 
   static getDerivedStateFromError(error: Error) {
-    console.log("Error caught by ErrorBoundary:", error);
+    console.log(ERROR_BOUNDARY_ERROR, error);
     return { hasError: true };
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error("Error caught by ErrorBoundary:", error, errorInfo);
+    console.error(ERROR_BOUNDARY_ERROR, error, errorInfo);
   }
 
   render() {
