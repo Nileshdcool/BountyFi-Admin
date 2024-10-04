@@ -8,7 +8,6 @@ import { useFilterContext } from '@/contexts/FilterContext';
 import { IFilter } from '@/types/filter';
 import { getReportsData } from '@/services/report.service';
 import { PageValues } from '@/constants/values';
-import Loader from '@/components/Loader';
 
 interface Props {
   initialData: Report[];
@@ -17,8 +16,8 @@ interface Props {
 
 const Home = ({ initialData, meta }: Props) => {
   const [data, setData] = useState<Report[]>(initialData);
-  const { activeButton, setActiveButton, page, setPage, totalPages, setTotalPages, formValues } = useFilterContext();
-  const [pageSize, setPageSize] = useState<number>(5);
+  const { activeButton, setPage, setTotalPages, formValues, pageSize } = useFilterContext();
+  
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -43,9 +42,9 @@ const Home = ({ initialData, meta }: Props) => {
   return (
     <div className="container mx-auto p-4">
       <h2 className="text-left text-2xl font-bold mb-4">{PageValues.REPORT}</h2>
-        <ButtonGroup activeButton={activeButton} handleButtonClick={setActiveButton} />
+        <ButtonGroup/>
         <FilterForm />
-        <ReportList data={data} fetchPage={fetchPage} page={page} totalPages={totalPages} pageSize={pageSize} setPageSize={setPageSize} />
+        <ReportList data={data} fetchPage={fetchPage}/>
     </div>
   );
 };

@@ -1,14 +1,14 @@
+import { useFilterContext } from '@/contexts/FilterContext';
 import React from 'react';
 
 interface PaginationProps {
     fetchPage: (page: number) => void;
-    page: number;
-    totalPages: number;
-    pageSize: number;
-    setPageSize: (size: number) => void;
 }
 
-const Pagination: React.FC<PaginationProps> = ({ fetchPage, page, totalPages, pageSize, setPageSize }) => {
+const Pagination: React.FC<PaginationProps> = ({ fetchPage}) => {
+
+    const { page, totalPages, pageSize, setPageSize  } = useFilterContext();
+
     return (
         <div className="pagination flex flex-col sm:flex-row justify-center items-center mt-4 space-y-2 sm:space-y-0 sm:space-x-4">
             <button

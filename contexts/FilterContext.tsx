@@ -1,3 +1,4 @@
+import { FILTER_CONTEXT_ERROR } from '@/constants/messages';
 import React, { createContext, useContext, useState } from 'react';
 
 interface FilterContextProps {
@@ -9,6 +10,8 @@ interface FilterContextProps {
   setTotalPages: (totalPages: number) => void;
   formValues: any;
   setFormValues: (values: any) => void;
+  pageSize: number;
+  setPageSize: (size: number) => void;
 }
 
 const FilterContext = createContext<FilterContextProps | undefined>(undefined);
@@ -22,6 +25,7 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [formValues, setFormValues] = useState({});
+  const [pageSize, setPageSize] = useState<number>(5);
 
   return (
     <FilterContext.Provider
@@ -34,6 +38,8 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
         setTotalPages,
         formValues,
         setFormValues,
+        pageSize, 
+        setPageSize
       }}
     >
       {children}
@@ -44,7 +50,7 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
 export const useFilterContext = () => {
   const context = useContext(FilterContext);
   if (!context) {
-    throw new Error('useFilterContext must be used within a FilterProvider');
+    throw new Error(FILTER_CONTEXT_ERROR);
   }
   return context;
 };
