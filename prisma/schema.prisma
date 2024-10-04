@@ -9,10 +9,10 @@ datasource db {
 
 model Project {
   id        Int      @id @default(autoincrement())
-  name      String
+  name      String   @unique
   createdAt DateTime @default(now())
 
-  reports Report[]
+  reports   Report[]
 }
 
 model Report {
@@ -25,15 +25,21 @@ model Report {
   status    ReportStatus
   createdAt DateTime       @default(now())
 
-  project Project @relation(fields: [projectId], references: [id])
-  user    User    @relation(fields: [userId], references: [id])
+  project   Project @relation(fields: [projectId], references: [id])
+  user      User    @relation(fields: [userId], references: [id])
+
+  @@index([projectId])
+  @@index([userId])
+  @@index([type])
+  @@index([severity])
+  @@index([status])
 }
 
 model User {
   id        Int    @id @default(autoincrement())
   email     String @unique
 
-  reports Report[]
+  reports   Report[]
 }
 
 enum ReportStatus {

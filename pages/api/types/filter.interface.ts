@@ -4,6 +4,7 @@ export interface IFilter {
     hacker?: string;
     severity?: string;
     reportType?: string;
+    submissionDate?: string;
     page?: number;
     limit?: number;
 }

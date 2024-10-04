@@ -6,4 +6,5 @@ export interface IFilter {
     reportType?: string;
     page?: number;
     limit?: number;
+    submissionDate?: string;
 }

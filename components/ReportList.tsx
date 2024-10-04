@@ -51,7 +51,9 @@ const ReportList: React.FC<ReportListProps> = ({ data, fetchPage}) => {
             <THead />
             <TBody data={data} />
             </table>
-            <Pagination fetchPage={fetchPage}/>
+            <div className="my-4">
+            <Pagination fetchPage={fetchPage} />
+            </div>
         </div>
     );
 };

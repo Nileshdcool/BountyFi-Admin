@@ -11,6 +11,13 @@ const buildWhereClause = (filter: IFilter) => {
   if (filter.hacker) where.user = { email: filter.hacker.toLowerCase() };
   if (filter.severity) where.severity = filter.severity.toLowerCase();
   if (filter.reportType) where.type = filter.reportType.toLowerCase();
+  if (filter.submissionDate) {
+    const date = new Date(filter.submissionDate);
+    where.createdAt = {
+      gte: new Date(date.setHours(0, 0, 0, 0)),
+      lt: new Date(date.setHours(24, 0, 0, 0)),
+    };
+  }
   return where;
 };
 

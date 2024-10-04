@@ -31,7 +31,9 @@ Then:
 ```
 npx prisma db seed
 ```
+## Prisma Command
 
+npx prisma migrate dev --name add_new_fields
 
 ## PGAdmin
 
