@@ -37,7 +37,7 @@ services:
     volumes:
       - immunefi_postgres:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
+      - "5800:5432"
 
 volumes:
   immunefi_postgres:
