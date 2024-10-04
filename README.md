@@ -20,6 +20,14 @@ git clone <repository-url>
 cd <repository-directory>
 ```
 
+---
+
+## Application Overview
+
+![Immunefi Screenshot](./screenshot.PNG)
+
+---
+
 ### 2. Start the Application
 
 To start the application and all required services, run the following command:
