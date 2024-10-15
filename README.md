@@ -84,7 +84,7 @@ To connect to the PostgreSQL database using PGAdmin, you will need the following
 - **Port**: `5432`
 - **Username**: `postgres`
 - **Password**: `secretpassword`
-- **Database**: `immunefi`
+- **Database**: `BountyFi`
 
 ### Steps to Connect:
 
@@ -93,7 +93,7 @@ To connect to the PostgreSQL database using PGAdmin, you will need the following
    - **Name**: (Any name of your choice)
    - **Host name/address**: `localhost`
    - **Port**: `5432`
-   - **Maintenance database**: `immunefi`
+   - **Maintenance database**: `BountyFi`
    - **Username**: `postgres`
    - **Password**: `secretpassword`
 
